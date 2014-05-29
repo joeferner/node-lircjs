@@ -1,0 +1,19 @@
+{
+  "name": "lircjs",
+  "version": "0.0.1",
+  "description": "Read and write IR command from/to LIRC.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:joeferner/node-lircjs.git"
+  },
+  "keywords": [
+    "lirc"
+  ],
+  "author": "Joe Ferner <joe@fernsroth.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/joeferner/node-lircjs/issues"
+  },
+  "homepage": "https://github.com/joeferner/node-lircjs"
+}
