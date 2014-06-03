@@ -12,9 +12,15 @@ module.exports.create = function(options) {
 
   var result = new events.EventEmitter();
   var socket = new net.Socket();
+  var connectCallback = null;
 
   socket.on('connect', function() {
-    return result.emit('connect');
+    if (connectCallback) {
+      connectCallback();
+      connectCallback = null;
+    } else {
+      return result.emit('connect');
+    }
   });
 
   socket.on('data', function(data) {
@@ -34,7 +40,12 @@ module.exports.create = function(options) {
   });
 
   socket.on('error', function(err) {
-    return result.emit('error', err);
+    if (connectCallback) {
+      connectCallback(err);
+      connectCallback = null;
+    } else {
+      return result.emit('error', err);
+    }
   });
 
   result.close = function() {
@@ -42,7 +53,8 @@ module.exports.create = function(options) {
   };
 
   result.connect = function(callback) {
-    return socket.connect(options.fileName, callback);
+    connectCallback = callback;
+    return socket.connect(options.fileName);
   };
 
   result.remotes = function(callback) {
