@@ -12,7 +12,7 @@ Example
 ```
 var lircjs = require('lircjs');
 
-var lirc = lircjs.connect();
+var lirc = lircjs().connect();
 
 lirc.on('connect', function() {
   console.log('lirc connected');
@@ -41,8 +41,8 @@ lirc.on('error', function(err) {
   console.log('lirc error', err);
 });
 
-lirc.on('end', function(err) {
-  console.log('lirc end');
+lirc.on('close', function(err) {
+  console.log('lirc close');
 });
 
 lirc.on('code', function(code) {

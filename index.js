@@ -6,7 +6,7 @@ var execFile = require('child_process').execFile;
 
 var irsend = 'irsend';
 
-module.exports.create = function(options) {
+module.exports = function(options) {
   options = options || {};
   options.fileName = options.fileName || '/var/run/lirc/lircd';
 
@@ -35,8 +35,8 @@ module.exports.create = function(options) {
     return result.emit('code', evt);
   });
 
-  socket.on('end', function() {
-    return result.emit('end');
+  socket.on('close', function() {
+    return result.emit('close');
   });
 
   socket.on('error', function(err) {
