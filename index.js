@@ -6,8 +6,9 @@ var execFile = require('child_process').execFile;
 
 var irsend = 'irsend';
 
-module.exports.connect = function(fileName) {
-  fileName = fileName || '/var/run/lirc/lircd';
+module.exports.create = function(options) {
+  options = options || {};
+  options.fileName = options.fileName || '/var/run/lirc/lircd';
 
   var result = new events.EventEmitter();
   var socket = new net.Socket();
@@ -40,9 +41,9 @@ module.exports.connect = function(fileName) {
     return socket.end();
   };
 
-  process.nextTick(function() {
-    return socket.connect(fileName);
-  });
+  result.connect = function(callback) {
+    return socket.connect(options.fileName, callback);
+  };
 
   result.remotes = function(callback) {
     callback = callback || console.error;
