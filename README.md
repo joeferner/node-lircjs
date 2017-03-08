@@ -1,4 +1,6 @@
 
+# Deprecated. Use something like [lirc-client](https://www.npmjs.com/package/lirc-client) instead.
+
 Install
 -------
 
